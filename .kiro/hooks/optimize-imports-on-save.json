@@ -1,0 +1,17 @@
+{
+  "name": "Optimize Imports on Save",
+  "description": "Clean up and optimize imports in React/TypeScript files",
+  "trigger": {
+    "type": "file_save",
+    "filePattern": "src/**/*.{ts,tsx}"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "The file that was just saved may have unused imports or could benefit from import optimization. Please:\n1. Review the imports in the modified file\n2. Remove any unused imports\n3. Organize imports by grouping (React imports, third-party libraries, local imports)\n4. Ensure all imports are properly typed\n5. Check for any missing imports that might be needed",
+      "description": "Optimizing imports..."
+    }
+  ],
+  "enabled": false,
+  "manual": true
+}

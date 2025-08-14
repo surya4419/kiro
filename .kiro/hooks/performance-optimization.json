@@ -1,0 +1,16 @@
+{
+  "name": "Performance Optimization Review",
+  "description": "Manual hook to review and optimize application performance",
+  "trigger": {
+    "type": "manual"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "Please perform a performance optimization review of the CartifyAI application:\n1. Check for unnecessary re-renders in React components\n2. Review Zustand store usage for optimal state management\n3. Identify opportunities for code splitting and lazy loading\n4. Check for memory leaks in useEffect hooks\n5. Review API calls for optimization opportunities (caching, batching)\n6. Analyze bundle size and suggest optimizations\n7. Check for unused dependencies in package.json\n8. Review image optimization and loading strategies\n9. Ensure proper cleanup of subscriptions and event listeners",
+      "description": "Reviewing performance optimization opportunities..."
+    }
+  ],
+  "enabled": true,
+  "manual": true
+}

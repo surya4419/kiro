@@ -1,0 +1,16 @@
+{
+  "name": "Validate Component Props",
+  "description": "Manual hook to validate TypeScript props and interfaces in components",
+  "trigger": {
+    "type": "manual"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "Please perform a comprehensive review of React component props and TypeScript interfaces:\n1. Check all components in src/components/ for proper TypeScript prop definitions\n2. Ensure all props have appropriate types and are not using 'any'\n3. Verify that optional props are properly marked with '?'\n4. Check for missing prop validations\n5. Ensure component interfaces are exported when needed by other components\n6. Look for opportunities to create shared interfaces for common prop patterns",
+      "description": "Validating component props and TypeScript interfaces..."
+    }
+  ],
+  "enabled": true,
+  "manual": true
+}

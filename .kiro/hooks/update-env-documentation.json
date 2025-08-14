@@ -1,0 +1,16 @@
+{
+  "name": "Update Environment Documentation",
+  "description": "Update README when environment variables or configuration changes",
+  "trigger": {
+    "type": "file_save",
+    "filePattern": "{.env*,vite.config.ts,netlify.toml,supabase/config.toml}"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "A configuration file has been modified that may affect environment setup or deployment. Please:\n1. Review the changes in the configuration file\n2. Check if any new environment variables were added or changed\n3. Update the README.md file to reflect any new setup requirements\n4. Ensure the .kiro/steering/tech.md file is updated with any new environment variables\n5. Verify that deployment configuration is still accurate",
+      "description": "Updating environment documentation..."
+    }
+  ],
+  "enabled": true
+}

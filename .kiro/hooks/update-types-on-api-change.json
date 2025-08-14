@@ -1,0 +1,16 @@
+{
+  "name": "Update Types on API Changes",
+  "description": "Review and update TypeScript types when API-related files change",
+  "trigger": {
+    "type": "file_save",
+    "filePattern": "{src/lib/**/*.ts,netlify/functions/**/*.ts,supabase/**/*.sql}"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "A file related to API integration or database schema has been modified. Please:\n1. Review the changes in the modified file\n2. Check if any TypeScript interfaces or types need to be updated\n3. Update relevant type definitions in src/lib/ or component files\n4. Ensure type safety is maintained across the application\n5. Check for any breaking changes that might affect existing components",
+      "description": "Reviewing API changes and updating types..."
+    }
+  ],
+  "enabled": true
+}

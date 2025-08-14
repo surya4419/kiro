@@ -1,0 +1,16 @@
+{
+  "name": "Accessibility Check",
+  "description": "Manual hook to review accessibility compliance in components",
+  "trigger": {
+    "type": "manual"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "Please perform an accessibility review of the CartifyAI application:\n1. Check all interactive elements have proper ARIA labels and roles\n2. Ensure proper heading hierarchy (h1, h2, h3, etc.)\n3. Verify that all images have appropriate alt text\n4. Check color contrast ratios meet WCAG guidelines\n5. Ensure keyboard navigation works properly\n6. Verify that the voice interface is accessible\n7. Check that form elements have proper labels\n8. Ensure focus indicators are visible and appropriate\n9. Review the shopping cart and checkout flow for accessibility",
+      "description": "Reviewing accessibility compliance..."
+    }
+  ],
+  "enabled": true,
+  "manual": true
+}

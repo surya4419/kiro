@@ -1,0 +1,17 @@
+{
+  "name": "Build Check on Component Changes",
+  "description": "Verify build integrity when React components are modified",
+  "trigger": {
+    "type": "file_save",
+    "filePattern": "src/components/**/*.{ts,tsx}"
+  },
+  "actions": [
+    {
+      "type": "shell_command",
+      "command": "npm run build",
+      "description": "Checking build integrity after component changes..."
+    }
+  ],
+  "enabled": false,
+  "manual": true
+}

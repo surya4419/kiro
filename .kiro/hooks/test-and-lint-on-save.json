@@ -1,0 +1,16 @@
+{
+  "name": "Test & Lint on Save",
+  "description": "Automatically run ESLint checks when TypeScript/React files are saved",
+  "trigger": {
+    "type": "file_save",
+    "filePattern": "**/*.{ts,tsx,js,jsx}"
+  },
+  "actions": [
+    {
+      "type": "shell_command",
+      "command": "npm run lint",
+      "description": "Running ESLint checks..."
+    }
+  ],
+  "enabled": true
+}

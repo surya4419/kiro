@@ -1,0 +1,16 @@
+{
+  "name": "Security Review on API Changes",
+  "description": "Review security implications when API or authentication code changes",
+  "trigger": {
+    "type": "file_save",
+    "filePattern": "{src/lib/supabase.ts,netlify/functions/**/*.ts,src/store/**/*.ts}"
+  },
+  "actions": [
+    {
+      "type": "agent_execution",
+      "prompt": "An API or authentication-related file has been modified. Please perform a security review:\n1. Check for proper authentication and authorization patterns\n2. Ensure API keys and sensitive data are not exposed in client-side code\n3. Verify that user input is properly validated and sanitized\n4. Check for potential security vulnerabilities (XSS, injection attacks, etc.)\n5. Ensure proper error handling that doesn't leak sensitive information\n6. Verify that CORS settings are appropriate\n7. Check that environment variables are properly configured for security",
+      "description": "Performing security review..."
+    }
+  ],
+  "enabled": true
+}
