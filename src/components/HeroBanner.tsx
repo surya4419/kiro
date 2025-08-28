@@ -1,358 +1,133 @@
 import React from 'react'
+import { ArrowRight, Truck, Shield, Headphones } from 'lucide-react'
 
 export const HeroBanner: React.FC = () => {
   return (
-    <div className="bg-white">
-      {/* Main Hero Grid - Responsive Layout */}
-      <div className="max-w-[1400px] mx-auto px-2 sm:px-4 py-3 sm:py-6">
-        {/* Mobile Layout */}
-        <div className="block lg:hidden space-y-4">
-          {/* Main Hero - Mobile */}
-          <div className="h-64 sm:h-80 bg-gradient-to-r from-[#0071ce] to-[#004c91] rounded-lg overflow-hidden relative">
-            <div className="absolute inset-0">
-              <img 
-                src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800" 
-                alt="Summer fashion model"
-                className="w-full h-full object-cover opacity-90"
-              />
+    <div className="bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      {/* Main Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">
+                🎉 New Collection Available
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Discover Your
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> Perfect </span>
+                Style
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Shop the latest trends with our curated collection of premium products. 
+                Quality meets affordability in every purchase.
+              </p>
             </div>
-            <div className="relative z-10 p-4 sm:p-6 h-full flex flex-col justify-center">
-              <div className="text-white">
-                <div className="text-xs sm:text-sm font-medium mb-2">Get faves to your door</div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4 leading-tight">
-                  Delivery in as<br />fast as 1 hour*
-                </h2>
-                <button className="bg-white text-[#0071ce] px-4 sm:px-6 py-2 sm:py-3 rounded-full font-bold text-sm sm:text-base hover:bg-gray-50 transition-colors shadow-lg">
-                  Shop now
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Secondary Cards - Mobile */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="h-40 sm:h-48 bg-gradient-to-br from-red-50 to-blue-50 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/1776930/pexels-photo-1776930.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                  alt="July 4th celebration"
-                  className="w-full h-full object-cover opacity-80"
-                />
-              </div>
-              <div className="relative z-10 p-3 sm:p-4 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-sm sm:text-lg font-bold text-yellow-500 mb-2 leading-tight">
-                    Everything for<br />July 4th
-                  </h2>
-                  <button className="bg-white text-[#0071ce] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-gray-50 transition-colors shadow-lg">
-                    Shop now
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-40 sm:h-48 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/163036/mario-luigi-yoschi-figures-163036.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                  alt="Jurassic World toys"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative z-10 p-3 sm:p-4 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-sm sm:text-lg font-bold text-white mb-2">
-                    New Jurassic<br />World movie
-                  </h2>
-                  <button className="bg-white text-[#007ee6] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                    Shop toys
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop Layout */}
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-12 gap-4 h-[600px]">
-            {/* Left Column - July 4th */}
-            <div className="col-span-3 bg-gradient-to-br from-red-50 to-blue-50 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/1776930/pexels-photo-1776930.jpeg?auto=compress&cs=tinysrgb&w=800" 
-                  alt="July 4th celebration"
-                  className="w-full h-full object-cover opacity-80"
-                />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-yellow-500 mb-2 leading-tight">
-                    Everything for<br />July 4th
-                  </h2>
-                  <button className="bg-white text-[#0071ce] px-6 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-lg">
-                    Shop now
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Center Large - Main Hero */}
-            <div className="col-span-6 bg-gradient-to-r from-[#0071ce] to-[#004c91] rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                  alt="Summer fashion model"
-                  className="w-full h-full object-cover opacity-90"
-                />
-              </div>
-              <div className="relative z-10 p-8 h-full flex flex-col justify-center">
-                <div className="text-white max-w-md">
-                  <div className="text-sm font-medium mb-2">Get faves to your door</div>
-                  <h2 className="text-5xl font-bold mb-6 leading-tight">
-                    Delivery in as<br />fast as 1 hour*
-                  </h2>
-                  <button className="bg-white text-[#0071ce] px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg">
-                    Shop now
-                  </button>
-                  <div className="mt-6 bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 inline-flex items-center">
-                    <div className="text-[#ffc220] mr-2">⚡</div>
-                    <span className="font-bold">Express Delivery</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Split into 2 */}
-            <div className="col-span-3 space-y-4">
-              {/* Top Right - Jurassic World */}
-              <div className="h-[290px] bg-gradient-to-br from-green-100 to-blue-100 rounded-lg overflow-hidden relative">
-                <div className="absolute inset-0">
-                  <img 
-                    src="https://images.pexels.com/photos/163036/mario-luigi-yoschi-figures-163036.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                    alt="Jurassic World toys"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold text-white mb-2">
-                      New Jurassic<br />World movie, 7/2
-                    </h2>
-                    <button className="bg-white text-[#007ee6] px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                      Shop toys & more
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Right - Only at Walmart */}
-              <div className="h-[290px] bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg overflow-hidden relative">
-                <div className="absolute inset-0">
-                  <img 
-                    src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                    alt="Exclusive fashion"
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                </div>
-                <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">
-                      Only at Walmart<br />—Baby Evie toys<br />& more
-                    </h2>
-                    <button className="bg-white text-[#007ee6] px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                      Shop new arrivals
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Second Row */}
-          <div className="grid grid-cols-12 gap-4 mt-4 h-[300px]">
-            {/* Summer Home Trends */}
-            <div className="col-span-3 bg-gradient-to-br from-green-50 to-yellow-50 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                  alt="Summer home decor"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
-                    Summer home<br />trends
-                  </h2>
-                  <button className="bg-white text-[#0071ce] px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                    Shop home
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Hot New Beauty */}
-            <div className="col-span-3 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                  alt="Beauty products"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
-                    Hot, new beauty<br />from $10
-                  </h2>
-                  <button className="bg-white text-[#0071ce] px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                    Shop now
-                  </button>
-                  <div className="mt-3">
-                    <span className="bg-[#0071ce] text-white px-2 py-1 rounded text-xs font-bold">
-                      New Arrivals
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Flash Deals */}
-            <div className="col-span-3 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                  alt="Electronics deals"
-                  className="w-full h-full object-cover opacity-70"
-                />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
-                    Up to 35% off
-                  </h2>
-                  <div className="text-4xl font-bold text-gray-900 mb-4">
-                    Flash<br />Deals
-                  </div>
-                  <button className="bg-white text-[#0071ce] px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                    Shop now
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Pet Supplies */}
-            <div className="col-span-3 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg overflow-hidden relative">
-              <div className="absolute inset-0">
-                <img 
-                  src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                  alt="Pet supplies"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
-                    Save big on<br />hundreds of pet<br />picks!
-                  </h2>
-                  <button className="bg-white text-[#0071ce] px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors shadow-md">
-                    Shop now
-                  </button>
-                  <div className="mt-3">
-                    <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                      Rollbacks
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Third Row - Large Banner */}
-          <div className="mt-4 h-[200px] bg-gradient-to-r from-[#0071ce] to-[#004c91] rounded-lg overflow-hidden relative">
-            <div className="absolute inset-0">
-              <img 
-                src="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=1400" 
-                alt="Grocery delivery"
-                className="w-full h-full object-cover opacity-80"
-              />
-            </div>
-            <div className="relative z-10 p-8 h-full flex items-center">
-              <div className="text-white max-w-2xl">
-                <h2 className="text-4xl font-bold mb-4">Get groceries & more delivered free</h2>
-                <p className="text-xl mb-6">No membership required. Restrictions apply.</p>
-                <button className="bg-[#ffc220] text-black px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors shadow-lg">
-                  Start shopping
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Second Row */}
-        <div className="block lg:hidden mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-          <div className="h-32 sm:h-40 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg overflow-hidden relative">
-            <div className="absolute inset-0">
-              <img 
-                src="https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                alt="Beauty products"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="relative z-10 p-3 sm:p-4 h-full flex flex-col justify-between">
-              <div>
-                <h2 className="text-sm sm:text-base font-bold text-gray-900 mb-2">
-                  Hot, new beauty<br />from $10
-                </h2>
-                <button className="bg-white text-[#0071ce] px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-colors shadow-md">
-                  Shop now
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="h-32 sm:h-40 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-lg overflow-hidden relative">
-            <div className="absolute inset-0">
-              <img 
-                src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                alt="Electronics deals"
-                className="w-full h-full object-cover opacity-70"
-              />
-            </div>
-            <div className="relative z-10 p-3 sm:p-4 h-full flex flex-col justify-between">
-              <div>
-                <h2 className="text-sm sm:text-base font-bold text-gray-900 mb-1">
-                  Up to 35% off
-                </h2>
-                <div className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                  Flash Deals
-                </div>
-                <button className="bg-white text-[#0071ce] px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-colors shadow-md">
-                  Shop now
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Bottom Banner */}
-        <div className="block lg:hidden mt-4 h-40 sm:h-48 bg-gradient-to-r from-[#0071ce] to-[#004c91] rounded-lg overflow-hidden relative">
-          <div className="absolute inset-0">
-            <img 
-              src="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800" 
-              alt="Grocery delivery"
-              className="w-full h-full object-cover opacity-80"
-            />
-          </div>
-          <div className="relative z-10 p-4 sm:p-6 h-full flex items-center">
-            <div className="text-white">
-              <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Get groceries & more delivered free</h2>
-              <p className="text-sm sm:text-base mb-4">No membership required. Restrictions apply.</p>
-              <button className="bg-[#ffc220] text-black px-4 sm:px-6 py-2 sm:py-3 rounded-full font-bold text-sm sm:text-base hover:bg-yellow-300 transition-colors shadow-lg">
-                Start shopping
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
+                <span>Shop Now</span>
+                <ArrowRight className="h-5 w-5" />
+              </button>
+              <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:border-indigo-600 hover:text-indigo-600 transition-all duration-200">
+                View Collection
               </button>
             </div>
+
+            {/* Features */}
+            <div className="grid grid-cols-3 gap-6 pt-8">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Truck className="h-6 w-6 text-indigo-600" />
+                </div>
+                <div className="text-sm font-semibold text-gray-900">Free Shipping</div>
+                <div className="text-xs text-gray-600">On orders over $50</div>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Shield className="h-6 w-6 text-green-600" />
+                </div>
+                <div className="text-sm font-semibold text-gray-900">Secure Payment</div>
+                <div className="text-xs text-gray-600">100% protected</div>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Headphones className="h-6 w-6 text-purple-600" />
+                </div>
+                <div className="text-sm font-semibold text-gray-900">24/7 Support</div>
+                <div className="text-xs text-gray-600">Always here to help</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Content - Hero Image */}
+          <div className="relative">
+            <div className="relative z-10">
+              <img 
+                src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                alt="Fashion model"
+                className="w-full h-[600px] object-cover rounded-2xl shadow-2xl"
+              />
+              {/* Floating Cards */}
+              <div className="absolute -top-4 -left-4 bg-white p-4 rounded-xl shadow-lg">
+                <div className="text-2xl font-bold text-indigo-600">50%</div>
+                <div className="text-sm text-gray-600">Off Today</div>
+              </div>
+              <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg">
+                <div className="text-sm font-semibold text-gray-900">⭐ 4.9/5</div>
+                <div className="text-xs text-gray-600">Customer Rating</div>
+              </div>
+            </div>
+            {/* Background Decoration */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl transform rotate-3 scale-105 opacity-20"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Featured Categories */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Shop by Category</h2>
+          <p className="text-gray-600">Discover our most popular categories</p>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { name: 'Electronics', image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400', color: 'from-blue-500 to-cyan-500' },
+            { name: 'Fashion', image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=400', color: 'from-pink-500 to-rose-500' },
+            { name: 'Home & Garden', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400', color: 'from-green-500 to-emerald-500' },
+            { name: 'Beauty', image: 'https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?auto=compress&cs=tinysrgb&w=400', color: 'from-purple-500 to-violet-500' }
+          ].map((category, index) => (
+            <div key={index} className="group cursor-pointer">
+              <div className="relative overflow-hidden rounded-2xl aspect-square">
+                <img 
+                  src={category.image} 
+                  alt={category.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-60 group-hover:opacity-70 transition-opacity`}></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <h3 className="text-white font-bold text-lg text-center">{category.name}</h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Promotional Banner */}
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Limited Time Offer
+            </h2>
+            <p className="text-xl mb-8 text-indigo-100">
+              Get up to 70% off on selected items. Don't miss out!
+            </p>
+            <button className="bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+              Shop Sale Items
+            </button>
           </div>
         </div>
       </div>

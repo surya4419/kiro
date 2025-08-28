@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Search, ShoppingCart, User, Menu, MapPin, Heart, ChevronDown, X,  Home, Tag } from 'lucide-react'
+import { Search, ShoppingCart, User, Menu, Heart, ChevronDown, X, Home, Tag } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { AuthModal } from './AuthModal'
 import { CartModal } from './CartModal'
@@ -32,8 +32,8 @@ export const Header: React.FC = () => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center space-x-2 font-semibold transition-colors duration-200 ${
-          isActive ? 'text-[#0071ce]' : 'text-gray-600 hover:text-[#0071ce]'
+        `flex items-center space-x-2 font-medium transition-colors duration-200 ${
+          isActive ? 'text-indigo-600' : 'text-gray-700 hover:text-indigo-600'
         }`
       }
     >
@@ -44,101 +44,83 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-[#0071ce] text-white sticky top-0 z-50 shadow-lg">
-        <div className="max-w-[1400px] mx-auto px-2 sm:px-4">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            {/* Logo and Location */}
-            <div className="flex items-center space-x-2 sm:space-x-6">
-              <div className="relative flex items-center space-x-2 sm:space-x-3">
-                <img 
-                  src="https://images.icon-icons.com/2699/PNG/512/walmart_logo_icon_170230.png" 
-                  alt="Walmart Logo" 
-                  className="w-6 h-6 sm:w-8 sm:w-8 md:w-10 md:h-10 object-contain"
-                />
-                <img
-                  src="/black_circle_360x360.png"
-                  alt="Black Circle Badge"
-                  className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full border-2 border-white shadow-lg pointer-events-none"
-                  style={{ zIndex: 10 }}
-                />
-              </div>
-              
-              {/* Location - Hidden on mobile */}
-              <div className="hidden lg:flex items-center space-x-2 text-sm">
-                <MapPin className="h-4 w-4 text-white" />
-                <div>
-                  <div className="text-xs text-blue-200">Deliver to</div>
-                  <div className="font-semibold text-white">Sacramento, 95829</div>
+      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">E</span>
+                </div>
+                <div className="hidden sm:block">
+                  <h1 className="text-xl font-bold text-gray-900">EcomStore</h1>
+                  <p className="text-xs text-gray-500">Modern Shopping</p>
                 </div>
               </div>
             </div>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-xl mx-2 sm:mx-6">
+            <div className="flex-1 max-w-2xl mx-8">
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search everything at Walmart"
+                  placeholder="Search for products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 pr-10 sm:pr-12 text-black rounded-full border-0 focus:outline-none focus:ring-2 focus:ring-[#ffc220] text-sm font-medium"
+                  className="w-full px-4 py-3 pl-12 pr-4 text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 />
-                <button className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 bg-[#0071ce] text-white p-1.5 sm:p-2 rounded-full hover:bg-[#004c91] transition-colors">
-                  <Search className="h-3 w-3 sm:h-4 sm:w-4" />
-                </button>
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               </div>
             </div>
 
             {/* Right Section */}
-            <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-8">
+            <div className="flex items-center space-x-4">
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
-                className="lg:hidden p-2 hover:bg-blue-700 rounded-full transition-colors"
+                className="lg:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                {showMobileMenu ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {showMobileMenu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
 
-              {/* Reorder - Hidden on mobile */}
-              <div className="hidden lg:flex flex-col items-center text-xs cursor-pointer hover:text-[#ffc220] transition-colors">
-                <Heart className="h-5 w-5 sm:h-6 sm:w-6 mb-1" />
-                <span className="font-medium">Reorder</span>
-                <span className="text-blue-200">My Items</span>
-              </div>
+              {/* Wishlist - Desktop */}
+              <button className="hidden lg:flex flex-col items-center p-2 text-gray-600 hover:text-indigo-600 transition-colors">
+                <Heart className="h-6 w-6" />
+                <span className="text-xs mt-1">Wishlist</span>
+              </button>
 
               {/* Account */}
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex flex-col items-center text-xs hover:text-[#ffc220] transition-colors"
+                  className="flex items-center space-x-2 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
                 >
-                  <User className="h-5 w-5 sm:h-6 sm:w-6 mb-1" />
-                  <div className="hidden sm:flex items-center space-x-1">
-                    <span className="font-medium">{user ? 'Account' : 'Sign In'}</span>
-                    <ChevronDown className="h-3 w-3" />
+                  <User className="h-6 w-6" />
+                  <div className="hidden sm:block text-left">
+                    <div className="text-sm font-medium">{user ? 'Account' : 'Sign In'}</div>
+                    {user && <div className="text-xs text-gray-500 truncate max-w-20">{user.full_name || 'User'}</div>}
                   </div>
-                  {user && <span className="hidden sm:block text-blue-200 text-xs truncate max-w-16">{user.full_name || 'Account'}</span>}
+                  <ChevronDown className="h-4 w-4" />
                 </button>
                 
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-64 sm:w-72 bg-white text-black rounded-lg shadow-2xl border z-50">
-                    <div className="p-4 sm:p-6">
+                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-200 z-50">
+                    <div className="p-6">
                       {user ? (
                         <>
-                          <div className="border-b pb-4 mb-4">
-                            <div className="font-bold text-lg text-gray-900">{user.full_name || 'User'}</div>
+                          <div className="border-b border-gray-100 pb-4 mb-4">
+                            <div className="font-semibold text-gray-900">{user.full_name || 'User'}</div>
                             <div className="text-sm text-gray-600 truncate">{user.email}</div>
                           </div>
                           <div className="space-y-2">
-                            <button className="w-full text-left px-3 py-3 hover:bg-gray-50 rounded font-medium">Purchase History</button>
-                            <button className="w-full text-left px-3 py-3 hover:bg-gray-50 rounded font-medium">Walmart+</button>
-                            <button className="w-full text-left px-3 py-3 hover:bg-gray-50 rounded font-medium">Account</button>
-                            <button className="w-full text-left px-3 py-3 hover:bg-gray-50 rounded font-medium">Lists</button>
-                            <button className="w-full text-left px-3 py-3 hover:bg-gray-50 rounded font-medium">Registries</button>
+                            <button className="w-full text-left px-3 py-2 hover:bg-gray-50 rounded-lg font-medium text-gray-700">My Orders</button>
+                            <button className="w-full text-left px-3 py-2 hover:bg-gray-50 rounded-lg font-medium text-gray-700">Profile Settings</button>
+                            <button className="w-full text-left px-3 py-2 hover:bg-gray-50 rounded-lg font-medium text-gray-700">Wishlist</button>
                             <hr className="my-3" />
                             <button 
                               onClick={handleSignOut}
-                              className="w-full text-left px-3 py-3 hover:bg-red-50 rounded text-red-600 font-medium"
+                              className="w-full text-left px-3 py-2 hover:bg-red-50 rounded-lg text-red-600 font-medium"
                             >
                               Sign Out
                             </button>
@@ -148,21 +130,16 @@ export const Header: React.FC = () => {
                         <div className="space-y-4">
                           <button 
                             onClick={() => handleAuthClick('signin')}
-                            className="w-full bg-[#0071ce] text-white py-3 px-4 rounded-full font-bold hover:bg-[#004c91] transition-colors"
+                            className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
                           >
                             Sign In
                           </button>
                           <button 
                             onClick={() => handleAuthClick('signup')}
-                            className="w-full border-2 border-[#0071ce] text-[#0071ce] py-3 px-4 rounded-full font-bold hover:bg-blue-50 transition-colors"
+                            className="w-full border-2 border-indigo-600 text-indigo-600 py-3 px-4 rounded-lg font-semibold hover:bg-indigo-50 transition-colors"
                           >
                             Create Account
                           </button>
-                          <div className="text-sm text-gray-600 space-y-2 pt-2">
-                            <div className="font-medium">• Purchase History</div>
-                            <div className="font-medium">• Track an Order</div>
-                            <div className="font-medium">• Walmart+</div>
-                          </div>
                         </div>
                       )}
                     </div>
@@ -173,48 +150,44 @@ export const Header: React.FC = () => {
               {/* Cart */}
               <button
                 onClick={() => setShowCartModal(true)}
-                className="relative flex flex-col items-center text-xs hover:text-[#ffc220] transition-colors"
+                className="relative flex items-center space-x-2 p-2 text-gray-600 hover:text-indigo-600 transition-colors"
               >
                 <div className="relative">
-                  <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 mb-1" />
+                  <ShoppingCart className="h-6 w-6" />
                   {cartItemCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-[#ffc220] text-black text-xs font-bold rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                       {cartItemCount > 99 ? '99+' : cartItemCount}
                     </span>
                   )}
                 </div>
-                <span className="font-bold text-xs sm:text-sm">${cartTotal.toFixed(2)}</span>
+                <div className="hidden sm:block text-left">
+                  <div className="text-sm font-medium">Cart</div>
+                  <div className="text-xs text-gray-500">${cartTotal.toFixed(2)}</div>
+                </div>
               </button>
             </div>
           </div>
 
           {/* Mobile Menu */}
           {showMobileMenu && (
-            <div className="lg:hidden bg-[#0071ce] border-t border-blue-600 py-4 px-2">
-              <div className="space-y-1">
+            <div className="lg:hidden border-t border-gray-200 py-4">
+              <div className="space-y-2">
                 <NavLinkHelper to="/" text="Home" icon={<Home className="w-5 h-5" />} />
-                <NavLinkHelper to="/deals"text="Deals" icon={<Tag className="w-5 h-5" />} />
+                <NavLinkHelper to="/deals" text="Deals" icon={<Tag className="w-5 h-5" />} />
                 <NavLinkHelper to="/account" text="My Account" icon={<User className="w-5 h-5" />} />
               </div>
             </div>
           )}
 
           {/* Navigation - Desktop */}
-          <nav className="hidden lg:flex items-center space-x-8 py-3 text-sm border-t border-blue-600">
-            <div className="flex items-center space-x-2 hover:text-[#ffc220] transition-colors cursor-pointer font-medium">
-              <Menu className="h-4 w-4" />
-              <span>Departments</span>
-            </div>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Services</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-bold">Grocery & Essentials</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Fashion</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Home</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Electronics</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Auto & Tires</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Pharmacy</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Trending</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Registry</a>
-            <a href="#" className="hover:text-[#ffc220] transition-colors font-medium">Walmart+</a>
+          <nav className="hidden lg:flex items-center space-x-8 py-4 border-t border-gray-100">
+            <a href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Categories</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Electronics</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Fashion</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Home & Garden</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Sports</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Beauty</a>
+            <a href="#" className="text-indigo-600 font-semibold">Sale</a>
           </nav>
         </div>
       </header>

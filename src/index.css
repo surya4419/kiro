@@ -4,8 +4,9 @@
 
 @layer base {
   :root {
-    --walmart-blue: #0071ce;
-    --walmart-yellow: #ffc220;
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --secondary: #7c3aed;
   }
 }
 
@@ -22,47 +23,6 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
-}
-
-/* Walmart Brand Colors */
-.bg-walmart-blue {
-  background-color: #0071ce;
-}
-
-.bg-walmart-yellow {
-  background-color: #ffc220;
-}
-
-.text-walmart-blue {
-  color: #0071ce;
-}
-
-.text-walmart-yellow {
-  color: #ffc220;
-}
-
-.border-walmart-blue {
-  border-color: #0071ce;
-}
-
-.border-walmart-yellow {
-  border-color: #ffc220;
-}
-
-.hover\:bg-walmart-blue:hover {
-  background-color: #0071ce;
-}
-
-.hover\:bg-walmart-yellow:hover {
-  background-color: #ffc220;
-}
-
-.focus\:ring-walmart-blue:focus {
-  --tw-ring-color: #0071ce;
-}
-
-.focus\:border-walmart-blue:focus {
-  border-color: #0071ce;
 }
 
 /* Custom scrollbar */
@@ -124,35 +84,27 @@
 
 /* Enhanced Focus styles */
 button:focus {
-  outline: 3px solid #0071ce;
+  outline: 3px solid #4f46e5;
   outline-offset: 2px;
 }
 
 input:focus {
-  outline: 3px solid #0071ce;
+  outline: 3px solid #4f46e5;
   outline-offset: 2px;
 }
 
-/* Custom shadows with Walmart branding */
-.shadow-walmart {
-  box-shadow: 0 4px 6px -1px rgba(0, 113, 206, 0.1), 0 2px 4px -1px rgba(0, 113, 206, 0.06);
-}
-
-.shadow-walmart-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 113, 206, 0.1), 0 4px 6px -2px rgba(0, 113, 206, 0.05);
-}
-
-.shadow-walmart-xl {
-  box-shadow: 0 20px 25px -5px rgba(0, 113, 206, 0.1), 0 10px 10px -5px rgba(0, 113, 206, 0.04);
+/* Custom shadows */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
 }
 
 /* Enhanced button styles */
 .btn-primary {
-  @apply bg-[#0071ce] text-white font-bold py-3 px-6 rounded-full hover:bg-[#004c91] transition-all duration-200 shadow-lg;
+  @apply bg-indigo-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-lg;
 }
 
 .btn-secondary {
-  @apply bg-[#ffc220] text-black font-bold py-3 px-6 rounded-full hover:bg-yellow-300 transition-all duration-200 shadow-lg;
+  @apply bg-white text-indigo-600 border-2 border-indigo-600 font-semibold py-3 px-6 rounded-xl hover:bg-indigo-50 transition-all duration-200;
 }
 
 /* Card hover effects */
@@ -178,17 +130,17 @@ input:focus {
 }
 
 /* Gradient backgrounds */
-.gradient-walmart {
-  background: linear-gradient(135deg, #0071ce 0%, #004c91 100%);
+.gradient-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
 }
 
-.gradient-walmart-yellow {
-  background: linear-gradient(135deg, #ffc220 0%, #ffb000 100%);
+.gradient-secondary {
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
 }
 
 /* Text gradients */
-.text-gradient-walmart {
-  background: linear-gradient(135deg, #0071ce 0%, #004c91 100%);
+.text-gradient-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -220,11 +172,46 @@ input:focus {
   @apply bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden;
 }
 
-/* Walmart-specific gradients for hero sections */
+/* Hero gradients */
 .hero-gradient-1 {
-  background: linear-gradient(135deg, #0071ce 0%, #004c91 50%, #002d5a 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 50%, #1e1b4b 100%);
 }
 
 .hero-gradient-2 {
-  background: linear-gradient(135deg, #ffc220 0%, #ffb000 50%, #ff9500 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 50%, #3b0764 100%);
+}
+
+/* Modern input styles */
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], select, textarea {
+  @apply transition-all duration-200;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus, select:focus, textarea:focus {
+  @apply ring-2 ring-indigo-500 border-transparent;
+}
+
+/* Button hover effects */
+.btn-hover-lift {
+  @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Modern badge styles */
+.badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-primary {
+  @apply bg-indigo-100 text-indigo-800;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-error {
+  @apply bg-red-100 text-red-800;
 }

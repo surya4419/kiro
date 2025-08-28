@@ -32,11 +32,11 @@ export const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-1 sm:p-2">
-      <div className="bg-white rounded-2xl w-full max-w-screen-sm h-[80vh] max-h-screen flex flex-col shadow-2xl">
-        <div className="flex items-center justify-between px-3 py-2 border-b">
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-            Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl w-full max-w-2xl h-[80vh] max-h-screen flex flex-col shadow-2xl">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900">
+            Shopping Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})
           </h2>
           <button
             onClick={onClose}
@@ -46,59 +46,61 @@ export const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-2 sm:p-3">
+        <div className="flex-1 overflow-y-auto p-6">
           {cartItems.length === 0 ? (
-            <div className="text-center py-8">
-              <ShoppingBag className="h-14 w-14 text-gray-300 mx-auto mb-3" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Your cart is empty</h3>
-              <p className="text-gray-600 mb-4 text-sm">Add items to get started</p>
+            <div className="text-center py-12">
+              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <ShoppingBag className="h-12 w-12 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h3>
+              <p className="text-gray-600 mb-6">Add items to get started</p>
               <button
                 onClick={onClose}
-                className="bg-[#0071ce] text-white px-6 py-2 rounded-full hover:bg-[#004c91] transition-colors font-bold text-sm"
+                className="bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-semibold"
               >
                 Continue Shopping
               </button>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {cartItems.map((item) => (
-                <div key={item.cart_item_id} className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 p-2 border rounded-xl hover:shadow transition-shadow">
+                <div key={item.cart_item_id} className="flex items-center space-x-4 p-4 border border-gray-100 rounded-xl hover:shadow-sm transition-shadow">
                   <img
                     src={item.image_url}
                     alt={item.name}
-                    className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                    className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
                   />
                   
-                  <div className="flex-1 w-full sm:w-auto">
-                    <h3 className="font-bold text-gray-900 mb-1 text-sm">{item.name}</h3>
-                    <p className="text-xs text-gray-600 mb-2">{item.brand}</p>
-                    <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-2">
-                      <span className="text-lg font-bold text-[#0071ce]">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-900 mb-1 truncate">{item.name}</h3>
+                    <p className="text-sm text-gray-600 mb-2">{item.brand}</p>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg font-bold text-indigo-600">
                         ${((item.price ?? 0).toFixed(2))}
                       </span>
-                      <span className="text-xs text-gray-500 line-through">
+                      <span className="text-sm text-gray-500 line-through">
                         ${(((item.price ?? 0) * 1.25).toFixed(2))}
                       </span>
-                      <span className="text-xs text-green-600 font-bold">
-                        Save {Math.round(20)}%
+                      <span className="text-sm text-green-600 font-semibold">
+                        20% off
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-full sm:w-auto sm:flex-col sm:space-y-3">
+                  <div className="flex items-center space-x-3">
                     <div className="flex items-center border border-gray-300 rounded-lg">
                       <button
                         onClick={() => handleQuantityChange(item.cart_item_id, (item.quantity ?? 0) - 1)}
                         className="p-2 hover:bg-gray-100 transition-colors"
                       >
-                        <Minus className="h-3 w-3" />
+                        <Minus className="h-4 w-4" />
                       </button>
-                      <span className="px-3 py-1 font-bold text-sm">{item.quantity ?? 0}</span>
+                      <span className="px-4 py-2 font-semibold">{item.quantity ?? 0}</span>
                       <button
                         onClick={() => handleQuantityChange(item.cart_item_id, (item.quantity ?? 0) + 1)}
                         className="p-2 hover:bg-gray-100 transition-colors"
                       >
-                        <Plus className="h-3 w-3" />
+                        <Plus className="h-4 w-4" />
                       </button>
                     </div>
                     
@@ -116,23 +118,23 @@ export const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
         </div>
 
         {cartItems.length > 0 && (
-          <div className="border-t p-3">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-base font-bold">Subtotal ({cartItemCount} items):</span>
-              <span className="text-xl font-bold text-[#0071ce]">${cartTotal.toFixed(2)}</span>
+          <div className="border-t border-gray-100 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-lg font-semibold">Subtotal ({cartItemCount} items):</span>
+              <span className="text-2xl font-bold text-indigo-600">${cartTotal.toFixed(2)}</span>
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-3">
               <button
                 onClick={handleCheckout}
-                className="w-full bg-[#ffc220] text-black py-2 px-4 rounded-full font-bold text-sm hover:bg-yellow-300 transition-colors shadow"
+                className="w-full bg-indigo-600 text-white py-3 px-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
               >
                 {user ? 'Continue to Checkout' : 'Sign in to Checkout'}
               </button>
               
               <button
                 onClick={onClose}
-                className="w-full border border-[#0071ce] text-[#0071ce] py-2 px-4 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors"
+                className="w-full border-2 border-indigo-600 text-indigo-600 py-3 px-4 rounded-xl font-semibold hover:bg-indigo-50 transition-colors"
               >
                 Continue Shopping
               </button>

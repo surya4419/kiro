@@ -28,7 +28,6 @@ export const CheckoutPage: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false)
 
   useEffect(() => {
-    // If there's no user or the cart is empty, redirect to home
     if (!user || cartItems.length === 0) {
       navigate('/')
     }
@@ -52,9 +51,8 @@ export const CheckoutPage: React.FC = () => {
     e.preventDefault()
     if (!user) return;
     setIsProcessing(true)
-    // Simulate payment processing delay
+    
     setTimeout(async () => {
-      // Save order to Supabase
       const { data: order, error } = await supabase
         .from('orders')
         .insert({
@@ -64,9 +62,9 @@ export const CheckoutPage: React.FC = () => {
         })
         .select()
         .single()
+      
       if (!error && order) {
         setOrderId(order.id)
-        // Fetch a valid category_id for new products
         let categoryId: string | null = null;
         const { data: defaultCategory } = await supabase
           .from('categories')
@@ -76,7 +74,6 @@ export const CheckoutPage: React.FC = () => {
         if (defaultCategory?.id) {
           categoryId = defaultCategory.id;
         } else {
-          // fallback: get the first available category
           const { data: anyCategory } = await supabase
             .from('categories')
             .select('id')
@@ -84,9 +81,9 @@ export const CheckoutPage: React.FC = () => {
             .single();
           categoryId = anyCategory?.id || null;
         }
+        
         const orderItems = [];
         for (const item of cartItems) {
-          // Try to find the product by serpapi_id
           let { data: existing, error: findError } = await supabase
             .from('products')
             .select('id')
@@ -94,20 +91,19 @@ export const CheckoutPage: React.FC = () => {
             .single();
           let productId;
           if (findError || !existing) {
-            // Insert the product if not found
             const { data: newProduct, error: insertError } = await supabase
               .from('products')
               .insert({
-                serpapi_id: item.id, // store SerpAPI product id here
+                serpapi_id: item.id,
                 name: item.name,
                 description: item.description || item.name,
                 price: item.price,
                 image_url: item.image_url,
-                category_id: categoryId, // always use a valid category_id
+                category_id: categoryId,
                 stock_quantity: item.stock_quantity ?? 100,
                 rating: item.rating ?? 0,
                 review_count: item.review_count ?? 0,
-                brand: item.brand || 'Walmart',
+                brand: item.brand || 'Brand',
               })
               .select('id')
               .single();
@@ -128,41 +124,44 @@ export const CheckoutPage: React.FC = () => {
           });
         }
         await supabase.from('order_items').insert(orderItems)
-        // Delete all cart_items for this user after successful checkout
         await supabase.from('cart_items').delete().eq('user_id', user.id);
         setPaymentSuccess(true)
       } else {
         alert('Payment failed. Please try again!')
-  }
+      }
       setIsProcessing(false)
     }, 1500)
   }
 
   if (paymentSuccess && user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full flex flex-col items-center">
-          <div className="text-5xl mb-4">🎉</div>
-          <h2 className="text-2xl font-bold text-[#0071ce] mb-2">Payment Successful!</h2>
-          <p className="text-gray-700 mb-4 text-center">Thank you for your purchase. Your order has been placed and is being processed.</p>
-          <div className="w-full border-t pt-4 mt-4">
-            <h3 className="font-bold text-lg mb-2">Order Summary</h3>
-            <ul className="mb-2">
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span className="text-4xl">✅</span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Payment Successful!</h2>
+          <p className="text-gray-600 mb-6">Thank you for your purchase. Your order has been placed and is being processed.</p>
+          
+          <div className="bg-gray-50 rounded-xl p-4 mb-6">
+            <h3 className="font-semibold text-gray-900 mb-3">Order Summary</h3>
+            <div className="space-y-2 text-sm">
               {cartItems.map(item => (
-                <li key={item.id} className="flex justify-between text-sm mb-1">
+                <div key={item.id} className="flex justify-between">
                   <span>{item.name} x {item.quantity}</span>
                   <span>${(item.price * item.quantity).toFixed(2)}</span>
-                </li>
+                </div>
               ))}
-            </ul>
-            <div className="flex justify-between font-bold text-base">
-              <span>Total:</span>
-              <span className="text-[#0071ce]">${total.toFixed(2)}</span>
+              <div className="border-t pt-2 flex justify-between font-semibold">
+                <span>Total:</span>
+                <span className="text-indigo-600">${total.toFixed(2)}</span>
+              </div>
             </div>
           </div>
+          
           <button
             onClick={() => navigate('/')}
-            className="mt-6 w-full bg-[#ffc220] text-black py-2 px-4 rounded-full font-bold text-sm hover:bg-yellow-300 transition-colors shadow"
+            className="w-full bg-indigo-600 text-white py-3 px-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
           >
             Continue Shopping
           </button>
@@ -174,18 +173,18 @@ export const CheckoutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-screen-md mx-auto px-2 py-3">
+      <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
               <Link
                 to="/"
-                className="flex items-center space-x-1 text-[#0071ce] hover:text-[#004c91] font-medium text-sm"
+                className="flex items-center space-x-2 text-indigo-600 hover:text-indigo-700 font-medium"
               >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Continue Shopping</span>
               </Link>
-              <div className="text-lg font-bold text-gray-900">Checkout</div>
+              <div className="text-2xl font-bold text-gray-900">Checkout</div>
             </div>
             <Link
               to="/"
@@ -197,64 +196,66 @@ export const CheckoutPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-screen-md mx-auto px-2 py-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Forms */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-6">
             {/* Shipping Information */}
-            <div className="bg-white rounded-xl shadow p-3">
-              <div className="flex items-center space-x-2 mb-3">
-                <Truck className="h-5 w-5 text-[#0071ce]" />
-                <h2 className="text-base font-bold text-gray-900">Shipping Information</h2>
+            <div className="bg-white rounded-2xl shadow-sm p-6">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                  <Truck className="h-5 w-5 text-indigo-600" />
+                </div>
+                <h2 className="text-xl font-bold text-gray-900">Shipping Information</h2>
               </div>
               
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">First Name</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
                   <input
                     type="text"
                     value={shippingInfo.firstName}
                     onChange={(e) => setShippingInfo({...shippingInfo, firstName: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Last Name</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
                   <input
                     type="text"
                     value={shippingInfo.lastName}
                     onChange={(e) => setShippingInfo({...shippingInfo, lastName: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Address</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Address</label>
                   <input
                     type="text"
                     value={shippingInfo.address}
                     onChange={(e) => setShippingInfo({...shippingInfo, address: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">City</label>
                   <input
                     type="text"
                     value={shippingInfo.city}
                     onChange={(e) => setShippingInfo({...shippingInfo, city: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">State</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">State</label>
                   <select
                     value={shippingInfo.state}
                     onChange={(e) => setShippingInfo({...shippingInfo, state: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   >
                     <option value="">Select State</option>
@@ -265,22 +266,22 @@ export const CheckoutPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">ZIP Code</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">ZIP Code</label>
                   <input
                     type="text"
                     value={shippingInfo.zipCode}
                     onChange={(e) => setShippingInfo({...shippingInfo, zipCode: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Phone</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
                   <input
                     type="tel"
                     value={shippingInfo.phone}
                     onChange={(e) => setShippingInfo({...shippingInfo, phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     required
                   />
                 </div>
@@ -288,22 +289,24 @@ export const CheckoutPage: React.FC = () => {
             </div>
 
             {/* Payment Information */}
-            <div className="bg-white rounded-xl shadow p-3">
-              <div className="flex items-center space-x-2 mb-3">
-                <CreditCard className="h-5 w-5 text-[#0071ce]" />
-                <h2 className="text-base font-bold text-gray-900">Payment Information</h2>
+            <div className="bg-white rounded-2xl shadow-sm p-6">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                  <CreditCard className="h-5 w-5 text-indigo-600" />
+                </div>
+                <h2 className="text-xl font-bold text-gray-900">Payment Information</h2>
                 <Lock className="h-4 w-4 text-green-500" />
               </div>
 
-              <div className="mb-3">
-                <div className="flex space-x-2">
+              <div className="mb-6">
+                <div className="flex space-x-4">
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('card')}
-                    className={`flex-1 p-2 border rounded-lg font-medium text-xs transition-colors ${
+                    className={`flex-1 p-4 border-2 rounded-xl font-semibold transition-colors ${
                       paymentMethod === 'card'
-                        ? 'border-[#0071ce] bg-blue-50 text-[#0071ce]'
-                        : 'border-gray-300 text-gray-700'
+                        ? 'border-indigo-600 bg-indigo-50 text-indigo-600'
+                        : 'border-gray-300 text-gray-700 hover:border-gray-400'
                     }`}
                   >
                     Credit/Debit Card
@@ -311,10 +314,10 @@ export const CheckoutPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('paypal')}
-                    className={`flex-1 p-2 border rounded-lg font-medium text-xs transition-colors ${
+                    className={`flex-1 p-4 border-2 rounded-xl font-semibold transition-colors ${
                       paymentMethod === 'paypal'
-                        ? 'border-[#0071ce] bg-blue-50 text-[#0071ce]'
-                        : 'border-gray-300 text-gray-700'
+                        ? 'border-indigo-600 bg-indigo-50 text-indigo-600'
+                        : 'border-gray-300 text-gray-700 hover:border-gray-400'
                     }`}
                   >
                     PayPal
@@ -323,49 +326,49 @@ export const CheckoutPage: React.FC = () => {
               </div>
 
               {paymentMethod === 'card' && (
-                <form className="space-y-2">
+                <form className="space-y-4">
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Card Number</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Card Number</label>
                     <input
                       type="text"
                       value={cardInfo.number}
                       onChange={(e) => setCardInfo({...cardInfo, number: e.target.value})}
                       placeholder="1234 5678 9012 3456"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       required
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-gray-700 mb-1">Expiry Date</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Expiry Date</label>
                       <input
                         type="text"
                         value={cardInfo.expiry}
                         onChange={(e) => setCardInfo({...cardInfo, expiry: e.target.value})}
                         placeholder="MM/YY"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-700 mb-1">CVV</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">CVV</label>
                       <input
                         type="text"
                         value={cardInfo.cvv}
                         onChange={(e) => setCardInfo({...cardInfo, cvv: e.target.value})}
                         placeholder="123"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         required
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Cardholder Name</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Cardholder Name</label>
                     <input
                       type="text"
                       value={cardInfo.name}
                       onChange={(e) => setCardInfo({...cardInfo, name: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0071ce] focus:border-transparent text-xs"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       required
                     />
                   </div>
@@ -373,40 +376,46 @@ export const CheckoutPage: React.FC = () => {
               )}
 
               {paymentMethod === 'paypal' && (
-                <div className="text-center py-6">
-                  <div className="text-gray-600 mb-2 text-xs">You will be redirected to PayPal to complete your payment</div>
-                  <div className="text-3xl">💳</div>
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">💳</span>
+                  </div>
+                  <p className="text-gray-600">You will be redirected to PayPal to complete your payment</p>
                 </div>
               )}
             </div>
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="bg-white rounded-xl shadow p-3 space-y-3">
-            <h2 className="text-base font-bold text-gray-900 mb-2">Order Summary</h2>
-            <div className="flex items-center justify-between text-xs">
-                  <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-            <div className="flex items-center justify-between text-xs">
-                  <span>Shipping</span>
-              <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
-                </div>
-            <div className="flex items-center justify-between text-xs">
-                  <span>Tax</span>
-                  <span>${tax.toFixed(2)}</span>
-                </div>
-            <div className="border-t pt-2 flex items-center justify-between text-base font-bold">
-                  <span>Total</span>
-              <span className="text-[#0071ce]">${total.toFixed(2)}</span>
+          <div className="bg-white rounded-2xl shadow-sm p-6 h-fit">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
+            
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center justify-between">
+                <span>Subtotal</span>
+                <span>${subtotal.toFixed(2)}</span>
               </div>
-              <button
-                onClick={handleSubmit}
-              className="w-full bg-[#ffc220] text-black py-2 px-4 rounded-full font-bold text-sm hover:bg-yellow-300 transition-colors shadow"
+              <div className="flex items-center justify-between">
+                <span>Shipping</span>
+                <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Tax</span>
+                <span>${tax.toFixed(2)}</span>
+              </div>
+              <div className="border-t pt-4 flex items-center justify-between text-xl font-bold">
+                <span>Total</span>
+                <span className="text-indigo-600">${total.toFixed(2)}</span>
+              </div>
+            </div>
+            
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-indigo-600 text-white py-4 px-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors disabled:opacity-50"
               disabled={isProcessing}
-              >
-              {isProcessing ? 'Processing...' : 'Pay Now'}
-              </button>
+            >
+              {isProcessing ? 'Processing...' : 'Complete Order'}
+            </button>
           </div>
         </div>
       </div>
